@@ -1,4 +1,3 @@
-var clone = require('clone')
 var async = require('async.js')
 var nextTick = require('next-tick')
 

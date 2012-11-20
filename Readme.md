@@ -7,7 +7,7 @@
 
 ## Installation
 
-    $ component install timoxley/async-transform
+    $ component install timoxley/async-compose
 
 ## Example
 
