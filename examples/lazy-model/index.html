@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="../../build/build.css" >
+  </head>
+  <body>
+    <h1>Lazy Model</h1>
+    <p>A long paragraph with some wierd typos in it.</p>
+    <script src="../../build/build.js" ></script>
+    <script>
+      var compose = require('async-compose')
+			var request = require('visionmedia-superagent/lib/client.js')
+			function LazyModel(data) {
+				this.data = data
+			}
+
+			LazyModel.prototype.prop = function(name, chain) {
+				if (!Array.isArray(chain)) chain = [chain]
+				this.loaders = this.loaders || {}
+				var loader = compose(chain)
+				this.loaders[name] = function(data, callback) {
+					loader(data, callback)
+				}.bind(this)
+			}
+
+			LazyModel.prototype.get = function(name, callback) {
+				var data = this.data
+				this.loaders[name](data, function(err, result) {
+					if (!err) data[name] = result
+					callback && callback(err, result)
+				})
+			}
+
+			var a = new LazyModel({
+				name: 'timoxley'
+			})
+
+			a.prop('avatar', function(data, fn) {
+				request
+				.get('https://api.github.com/users/' + data.name)
+				.end(function(res) {
+					if (!res.ok) return fn(new Error('Error getting user.'))
+					fn(null, res.body && res.body.avatar_url)
+				})
+			})
+
+			a.prop('organisations', function(data, fn) {
+				request
+				.get('https://api.github.com/users/' + data.name + '/orgs')
+				.end(function(res) {
+					if (!res.ok) return fn(new Error('Error getting user.'))
+					fn(null, res.body)
+				})
+			})
+
+			a.get('avatar', function() {
+				console.log('loaded avatar: %o', a.data)
+			})
+
+			a.get('organisations', function() {
+				console.log('loaded organisations: %o', a.data)
+			})
+
+    </script>
+  </body>
+</html>

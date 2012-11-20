@@ -1,0 +1,22 @@
+{
+  "name": "async-compose",
+  "repo": "timoxley/async-compose",
+  "description": "Compose a series of async functions to tranform objects.",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {
+    "component/clone": "*",
+    "solutionio/async": "*",
+    "timoxley/next-tick": "*"
+  },
+  "development": {
+    "timoxley/assert": "*",
+    "visionmedia/superagent": "*",
+    "component/domify": "*",
+    "timoxley/get": "*"
+  },
+  "license": "MIT",
+  "scripts": [
+    "index.js"
+  ]
+}
