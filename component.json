@@ -1,6 +1,7 @@
 {
   "name": "async-compose",
   "repo": "timoxley/async-compose",
+  "twitter": "secoif",
   "description": "Compose a series of async functions to tranform objects.",
   "version": "0.0.1",
   "keywords": ["async", "functional"],
