@@ -17,7 +17,7 @@ module.exports = function compose(fns) {
 /**
  * Require function to return results in callback.
  *
- * @param fn
+ * @param {Function:obj, Function} fn
  * @return {Function}
  * @api private
  */
