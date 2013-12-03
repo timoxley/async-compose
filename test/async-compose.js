@@ -1,5 +1,10 @@
-var Compose = require('async-compose')
-var assert = require('timoxley-assert')
+try {
+  var Compose = require('async-compose')
+  var assert = require('timoxley-assert')
+} catch (e) {
+  var Compose = require('../')
+  var assert = require('assert')
+}
 
 describe('compose', function() {
   describe('with no functions', function() {
@@ -8,7 +13,6 @@ describe('compose', function() {
       target = {}
       var composed = Compose([])
       composed(target, function(err, res) {
-        console.log(arguments)
         assert.ifError(err)
         result = res
         done()

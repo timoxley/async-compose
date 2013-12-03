@@ -1,5 +1,12 @@
-var async = require('async.js')
-var nextTick = require('next-tick')
+if (typeof process !== undefined) {
+  // node/browserify
+  var async = require('async')
+  var nextTick = process.nextTick
+} else {
+  // component
+  var async = require('async.js')
+  var nextTick = require('next-tick')
+}
 
 module.exports = function compose(fns) {
   return function(obj, done) {
